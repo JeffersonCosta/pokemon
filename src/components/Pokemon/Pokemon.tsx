@@ -1,9 +1,5 @@
 import React from 'react';
-
-interface IPokemon {
-	name: string,
-	url: string
-}
+import IPokemon from '../../types/IPokemon';
 
 interface Props {
     pokemon: IPokemon
@@ -12,7 +8,7 @@ interface Props {
 const Pokemon:React.FC<Props> = ({ pokemon, children }) => {
 
     return (
-        <div>
+        <div style={{ height: 100}}>
             <strong>nome: {pokemon.name}</strong>
         </div>
     )
