@@ -1,7 +1,7 @@
 {
   "name": "pokemon",
   "version": "0.1.0",
-  "homepage": "https://jeffersoncosta.github.io/pokemon/",
+  "homepage": "https://jeffersoncosta.github.io/pokemon",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.4.1",
