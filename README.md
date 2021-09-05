@@ -11,7 +11,7 @@ Contents
     <a href="#install">Install dependencies</a> •
     <a href="#run">Run application</a> •
     <a href="#versions">Versions</a> •
-    <a href="#view">Demo</a> •
+    <a href="#demo">Demo</a> •
 </p>
 
 <div id="install">
@@ -23,6 +23,7 @@ npm install
 ```
 </div>
 
+<div id="run">
 2. **Running application**
 
 ```bash
@@ -30,11 +31,10 @@ npm start
 ```
 </div>
 
-</div>
+<div id="versions">
 
 3. **Versions:**
 
-```bash
 | Plugin  | Version |
 | ------------- | ------------- |
 | NodeJs  | 14.16.0  |
@@ -42,9 +42,10 @@ npm start
 | ReactJs  | 17.0.2  |
 | react-scripts  | 2.0.3 |
 | typescript  | 4.1.2 |
-```
 
 </div>
+
+<div id="demo">
 
 4. **DEMO**
 
