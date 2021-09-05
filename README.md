@@ -34,6 +34,7 @@ npm start
 
 3. **Versions:**
 
+```bash
 | Plugin  | Version |
 | ------------- | ------------- |
 | NodeJs  | 14.16.0  |
@@ -41,6 +42,7 @@ npm start
 | ReactJs  | 17.0.2  |
 | react-scripts  | 2.0.3 |
 | typescript  | 4.1.2 |
+```
 
 </div>
 
