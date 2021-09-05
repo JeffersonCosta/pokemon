@@ -1,10 +1,9 @@
-# pokemon
-
-![Screenshot](screenshot.png)
-
 <h1 align="center">
     Pokémon App
 </h1>
+=================
+
+![Screenshot](screenshot.png)
 
 Contents
 =================
@@ -18,14 +17,14 @@ Contents
 
 <div id="install">
 
-1. **Install dependencies with npm:**
+1. **Install dependencies with npm**
 
 ```bash
 npm install
 ```
 </div>
 
-2. **Running application:**
+2. **Running application**
 
 ```bash
 npm start
@@ -46,8 +45,8 @@ npm start
 
 </div>
 
-4. **DEMO:**
+4. **DEMO**
 
-<a href="https://jeffersoncosta.github.io/pokemon">https://jeffersoncosta.github.io/pokemon</a> •
+<a href="https://jeffersoncosta.github.io/pokemon">https://jeffersoncosta.github.io/pokemon</a>
 
 </div>
