@@ -156,7 +156,7 @@ const App = () => {
 											Listar todos
 										</MenuItem>
 										<MenuItem key="by-area" value="by-area">
-											Por área
+											Por localização
 										</MenuItem>
 										<MenuItem key="by-name" value="by-name">
 											Por nome

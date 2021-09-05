@@ -91,7 +91,7 @@ const Pokemon: React.FC<Props> = ({ pokemon }) => {
             axios
                 .get<any>(pokemon.url)
                 .then(response => {
-                    
+
                     setPokemonDetails(response.data);
                     setLoadingPokemonDetails(false);
                 })
@@ -105,7 +105,9 @@ const Pokemon: React.FC<Props> = ({ pokemon }) => {
 
     return (
         <Grid item xs={12} sm={4}>
-            <Card>
+            <Card
+                onClick={handleExpandClick}
+            >
                 {
                     loadingPokemonDetails
                         ? <Skeleton variant="rect" width="100%" height={200} />
@@ -123,27 +125,13 @@ const Pokemon: React.FC<Props> = ({ pokemon }) => {
                     </Typography>
 
                     <Box marginY={2}>
-                        Abilities: 
+                        Abilities:
                         {
                             loadingPokemonDetails
                                 ? <Skeleton variant="text" />
-                                : Object.keys(pokemonDetails).length && pokemonDetails.abilities.map((ability: any, index: number) => 
+                                : Object.keys(pokemonDetails).length && pokemonDetails.abilities.map((ability: any, index: number) =>
                                     <Chip className={classes.chip} color="secondary" size="medium" key={index} label={ability.ability.name} />
                                 )
-                        }
-                    </Box>
-
-                    <Box marginY={2}>
-                        {
-                            Object.keys(pokemonDetails).length && pokemonDetails.stats.map((stat: any, index: number) =>
-                                <Box key={index} display="flex" alignItems="center" className={classes.boxProgress}>
-                                    <p className={classes.statName}>
-                                        {stat.stat.name} 
-                                        <strong className={classes.baseStatName}>{stat.base_stat}</strong>
-                                    </p> 
-                                    <LinearProgress className={classes.progressBar} variant="determinate" value={stat.base_stat} />
-                                </Box>
-                            )
                         }
                     </Box>
                 </CardContent>
@@ -158,12 +146,24 @@ const Pokemon: React.FC<Props> = ({ pokemon }) => {
                     >
                         <ExpandMoreIcon />
                     </IconButton>
-                </CardActions>
+                </CardActions> */}
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <CardContent>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo, eum in libero adipisci repudiandae, error, autem consequatur commodi illum vel unde velit inventore ipsum labore! Cumque eaque repellendus sunt provident.
+                        <Box marginY={2}>
+                            {
+                                Object.keys(pokemonDetails).length && pokemonDetails.stats.map((stat: any, index: number) =>
+                                    <Box key={index} display="flex" alignItems="center" className={classes.boxProgress}>
+                                        <p className={classes.statName}>
+                                            {stat.stat.name}
+                                            <strong className={classes.baseStatName}>{stat.base_stat}</strong>
+                                        </p>
+                                        <LinearProgress className={classes.progressBar} variant="determinate" value={stat.base_stat} />
+                                    </Box>
+                                )
+                            }
+                        </Box>
                     </CardContent>
-                </Collapse> */}
+                </Collapse>
             </Card>
             {/* <strong>nome: {pokemon.name}</strong>
                 <div>
