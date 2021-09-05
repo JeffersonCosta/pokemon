@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
         padding: theme.spacing(2),
         textAlign: 'center',
         color: theme.palette.text.secondary,
+        cursor: 'pointer'
     },
     media: {
         padding: 0,
@@ -63,6 +64,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     },
     pokemonName: {
         fontFamily: 'Righteous, Raleway, Arial',
+    },
+    cardExpanded: {
+        border: '5px solid #efefef'
     }
 }));
 
@@ -107,6 +111,7 @@ const Pokemon: React.FC<Props> = ({ pokemon }) => {
         <Grid item xs={12} sm={4}>
             <Card
                 onClick={handleExpandClick}
+                className={`${expanded === true ? classes.cardExpanded : ''}`}
             >
                 {
                     loadingPokemonDetails
