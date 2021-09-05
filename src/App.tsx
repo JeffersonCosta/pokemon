@@ -8,18 +8,29 @@ import Pokemon from './components/Pokemon';
 import pokeApi from './services/pokeApi';
 import IPagination from './types/IPagination';
 import IPokemon from './types/IPokemon';
+import { AsyncPaginate } from 'react-select-async-paginate';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
 	root: {
 		flexGrow: 1,
-		fontFamily: 'Righteous, Raleway, Arial',
+		fontFamily: 'Righteous, Raleway, Arial'
 	},
 	input: {
 		margin: 10,
-		minWidth: 200,
+		maxWidth: 250,
+		width: '100%'
 	},
 	container: {
 		paddingTop: 20
+	},
+	selectArea: {
+		maxWidth: 250,
+		width: '100%',
+		margin: 10
+	},
+	btnSearch: {
+		padding: 8,
+		minWidth: 30
 	}
 }));
 
@@ -56,6 +67,22 @@ const App = () => {
 	const [pokemons, setPokemons] = useState<Array<IPokemon>>([]);
 	const [typeSearch, setTypeSearch] = useState('default');
 	const [search, setSearch] = useState('');
+	const [area, setArea] = useState<any>({});
+
+	async function loadOptions(loadedOptions: any) {
+
+		const response = await pokeApi.get<any>(`location-area?offset=${loadedOptions.length}&limit=20`);
+		const results = response.data.results.map((result: any) => {
+			return {
+				value: result.id,
+				label: result.name
+			}
+		})
+		return {
+			options: results,
+			hasMore: response.data.next,
+		};
+	}
 
 	const handleSearchPokemonsByDefault = () => {
 
@@ -97,25 +124,30 @@ const App = () => {
 			});
 	}
 
-	const handleSearchPokemonByLocationArea = () => {
+	const handleSearchPokemonByLocationArea = () => {	
 
-		pokeApi
-			.get<any>(`location-area/${search}`)
-			.then(response => {
+		console.log(area);		
 
-				const pokemonsEncounters = response.data.pokemon_encounters.map((pokemonItem: any) => pokemonItem.pokemon);
-				setPokemons(pokemonsEncounters);
-			})
-			.catch(error => {
-
-				setPokemons([]);
-				console.log(error);
-			});
+		if (area.hasOwnProperty('label')) {
+			
+			pokeApi
+				.get<any>(`location-area/${area.label}`)
+				.then(response => {
+	
+					const pokemonsEncounters = response.data.pokemon_encounters.map((pokemonItem: any) => pokemonItem.pokemon);
+					setPokemons(pokemonsEncounters);
+				})
+				.catch(error => {
+	
+					setPokemons([]);
+					console.log(error);
+				});
+		}
 	}
 
 	const handleSearch = () => {
 
-		if (typeSearch === 'by-area' && search.length > 0) {
+		if (typeSearch === 'by-area' && Object.keys(area).length > 0) {
 
 			handleSearchPokemonByLocationArea();
 		} else if (typeSearch === 'by-name' && search.length > 0) {
@@ -142,7 +174,8 @@ const App = () => {
 					<Toolbar>
 						<Grid container spacing={3}>
 							<Grid item xs={12}>
-								<Box display="flex" justifyContent="center">
+								<Box display='flex' justifyContent="center" alignItems="center">
+
 									<TextField
 										className={classes.input}
 										size="small"
@@ -150,38 +183,50 @@ const App = () => {
 										label="Pesquisar por"
 										value={typeSearch}
 										onChange={event => setTypeSearch(event.target.value)}
-										variant="standard"
+										variant="outlined"
 									>
 										<MenuItem key="default" value="default">
-											Listar todos
+											Todos
 										</MenuItem>
 										<MenuItem key="by-area" value="by-area">
-											Por localização
+											Localização
 										</MenuItem>
 										<MenuItem key="by-name" value="by-name">
-											Por nome
+											Nome
 										</MenuItem>
 									</TextField>
 
-									<TextField
-										className={classes.input}
-										size="small"
-										placeholder="Pesquisar..."
-										value={search}
-										onChange={event => {
-											setSearch(event.target.value)
-										}}
-										disabled={typeSearch === 'default'}
-										label="Digite aqui..."
-										type="search"
-										variant="standard"
-									/>
+									{
+										typeSearch === 'by-area'
+											? <AsyncPaginate
+												className={classes.selectArea}
+												value={area}
+												loadOptions={loadOptions}
+												onChange={(area: any) => { setArea(area) }}
+											/>
+											: <TextField
+												className={classes.input}
+												size="small"
+												placeholder="Pesquisar..."
+												value={search}
+												onChange={event => {
+													setSearch(event.target.value)
+												}}
+												disabled={typeSearch === 'default'}
+												label="Digite aqui..."
+												type="search"
+												variant="standard"
+											/>
+									}
+
+
 									<Box display="flex" alignItems="center">
 										<Button
 											size="large"
 											variant="contained"
 											onClick={handleSearch}
 											color="primary"
+											className={classes.btnSearch}
 										>
 											<SearchOutlined />
 										</Button>
