@@ -1,7 +1,6 @@
 <h1 align="center">
     Pokémon App
 </h1>
-=================
 
 ![Screenshot](screenshot.png)
 
