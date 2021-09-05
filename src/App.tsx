@@ -58,7 +58,7 @@ const App = () => {
 
 	const [results, setResults] = useState<IPagination>({
 		count: 0,
-		next: 'pokemon?limit=10&offset=200',
+		next: 'pokemon?limit=10&offset=0',
 		previous: '',
 		results: []
 	});
