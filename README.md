@@ -36,9 +36,9 @@ npm start
 
 | Plugin  | Version |
 | ------------- | ------------- |
-| ReactJs  | 17.0.2  |
 | NodeJs  | 14.16.0  |
 | NPM  | 7.6.3  |
+| ReactJs  | 17.0.2  |
 | react-scripts  | 2.0.3 |
 | typescript  | 4.1.2 |
 
