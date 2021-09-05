@@ -1,74 +1,9 @@
-import { Box, Card, CardActions, CardContent, CardMedia, Chip, Collapse, Grid, LinearProgress, Typography } from "@material-ui/core";
-import { red } from '@material-ui/core/colors';
-import IconButton from '@material-ui/core/IconButton';
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { Box, Card, CardContent, CardMedia, Chip, Collapse, Grid, LinearProgress, Typography } from "@material-ui/core";
 import { Skeleton } from "@material-ui/lab";
 import axios from 'axios';
-import clsx from 'clsx';
 import React, { useEffect, useState } from 'react';
 import IPokemon from '../../types/IPokemon';
-
-
-const useStyles = makeStyles((theme: Theme) => createStyles({
-    paper: {
-        padding: theme.spacing(2),
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-        cursor: 'pointer'
-    },
-    media: {
-        padding: 0,
-        height: 200,
-        backgroundSize: 'auto 80%',
-        backgroundColor: '#F2F2F2',
-    },
-    expand: {
-        transform: 'rotate(0deg)',
-        marginLeft: 'auto',
-        transition: theme.transitions.create('transform', {
-            duration: theme.transitions.duration.shortest,
-        }),
-    },
-    expandOpen: {
-        transform: 'rotate(180deg)',
-    },
-    avatar: {
-        backgroundColor: red[500],
-    },
-    chip: {
-        margin: 2
-    },
-    progressBar: {
-        flex: 1,
-        height: 10,
-        borderRadius: 2
-    },
-    statName: {
-        flex: '50% 0 0',
-        paddingRight: 10,
-        margin: 0,
-        color: '#777',
-        textAlign: "right"
-    },
-    baseStatName: {
-        color: '#115293',
-        width: 30,
-        display: 'inline-block'
-    },
-    boxProgress: {
-        margin: '5px 0'
-    },
-    subName: {
-        color: '#999'
-    },
-    pokemonName: {
-        fontFamily: 'Righteous, Raleway, Arial',
-    },
-    cardExpanded: {
-        border: '5px solid #efefef'
-    }
-}));
+import useStyles from "./styles";
 
 interface Props {
     pokemon: IPokemon
@@ -140,18 +75,6 @@ const Pokemon: React.FC<Props> = ({ pokemon }) => {
                         }
                     </Box>
                 </CardContent>
-                {/* <CardActions disableSpacing>
-                    <IconButton
-                        className={clsx(classes.expand, {
-                            [classes.expandOpen]: expanded,
-                        })}
-                        onClick={handleExpandClick}
-                        aria-expanded={expanded}
-                        aria-label="show more"
-                    >
-                        <ExpandMoreIcon />
-                    </IconButton>
-                </CardActions> */}
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <CardContent>
                         <Box marginY={2}>
@@ -170,14 +93,6 @@ const Pokemon: React.FC<Props> = ({ pokemon }) => {
                     </CardContent>
                 </Collapse>
             </Card>
-            {/* <strong>nome: {pokemon.name}</strong>
-                <div>
-                    {
-                        loadingPokemonDetails
-                            ? <p>Caregando detalhes do pokemón</p>
-                            : Object.keys(pokemonDetails).length && <img src={pokemonDetails.sprites.back_default} alt={`Pokemón ${pokemon.name}`} />
-                    }
-                </div> */}
         </Grid>
     )
 }

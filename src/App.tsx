@@ -1,38 +1,13 @@
-import { AppBar, Box, Button, CircularProgress, Container, CssBaseline, Grid, MenuItem, TextField, Toolbar, useScrollTrigger } from '@material-ui/core';
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import { SearchOutlined } from '@material-ui/icons';
+import { CircularProgress, Container, CssBaseline, Grid, Toolbar, useScrollTrigger } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Pokemon from './components/Pokemon';
+import SearchBar from './components/SearchBar';
+import useStyles from './styles';
 import pokeApi from './services/pokeApi';
 import IPagination from './types/IPagination';
 import IPokemon from './types/IPokemon';
-import { AsyncPaginate } from 'react-select-async-paginate';
-
-const useStyles = makeStyles((theme: Theme) => createStyles({
-	root: {
-		flexGrow: 1,
-		fontFamily: 'Righteous, Raleway, Arial'
-	},
-	input: {
-		margin: 10,
-		maxWidth: 250,
-		width: '100%'
-	},
-	container: {
-		paddingTop: 20
-	},
-	selectArea: {
-		maxWidth: 250,
-		width: '100%',
-		margin: 10
-	},
-	btnSearch: {
-		padding: 8,
-		minWidth: 30
-	}
-}));
 
 function ElevationScroll({ children, window }: any) {
 
@@ -68,21 +43,6 @@ const App = () => {
 	const [typeSearch, setTypeSearch] = useState('default');
 	const [search, setSearch] = useState('');
 	const [area, setArea] = useState<any>({});
-
-	async function loadOptions(loadedOptions: any) {
-
-		const response = await pokeApi.get<any>(`location-area?offset=${loadedOptions.length}&limit=20`);
-		const results = response.data.results.map((result: any) => {
-			return {
-				value: result.id,
-				label: result.name
-			}
-		})
-		return {
-			options: results,
-			hasMore: response.data.next,
-		};
-	}
 
 	const handleSearchPokemonsByDefault = () => {
 
@@ -160,7 +120,9 @@ const App = () => {
 	}
 
 	useEffect(() => {
+		
 		handleSearch();
+		// eslint-disable-next-line
 	}, []);
 
 	return (
@@ -170,72 +132,16 @@ const App = () => {
 
 			<div className={classes.root}>
 
-				<AppBar position="fixed" color="inherit">
-					<Toolbar>
-						<Grid container spacing={3}>
-							<Grid item xs={12}>
-								<Box display='flex' justifyContent="center" alignItems="center">
+				<SearchBar 
+					typeSearch={typeSearch}
+					setTypeSearch={setTypeSearch}
+					search={search}
+					setSearch={setSearch}
+					area={area}
+					setArea={setArea}
+					handleSearch={handleSearch}
+				/>
 
-									<TextField
-										className={classes.input}
-										size="small"
-										select
-										label="Pesquisar por"
-										value={typeSearch}
-										onChange={event => setTypeSearch(event.target.value)}
-										variant="outlined"
-									>
-										<MenuItem key="default" value="default">
-											Todos
-										</MenuItem>
-										<MenuItem key="by-area" value="by-area">
-											Localização
-										</MenuItem>
-										<MenuItem key="by-name" value="by-name">
-											Nome
-										</MenuItem>
-									</TextField>
-
-									{
-										typeSearch === 'by-area'
-											? <AsyncPaginate
-												className={classes.selectArea}
-												value={area}
-												loadOptions={loadOptions}
-												onChange={(area: any) => { setArea(area) }}
-											/>
-											: <TextField
-												className={classes.input}
-												size="small"
-												placeholder="Pesquisar..."
-												value={search}
-												onChange={event => {
-													setSearch(event.target.value)
-												}}
-												disabled={typeSearch === 'default'}
-												label="Digite aqui..."
-												type="search"
-												variant="standard"
-											/>
-									}
-
-
-									<Box display="flex" alignItems="center">
-										<Button
-											size="large"
-											variant="contained"
-											onClick={handleSearch}
-											color="primary"
-											className={classes.btnSearch}
-										>
-											<SearchOutlined />
-										</Button>
-									</Box>
-								</Box>
-							</Grid>
-						</Grid>
-					</Toolbar>
-				</AppBar>
 				<Toolbar />
 				<Container maxWidth="lg" className={classes.container}>
 
