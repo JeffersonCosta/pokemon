@@ -4,17 +4,7 @@ import { SearchOutlined } from '@material-ui/icons';
 import { AsyncPaginate } from 'react-select-async-paginate';
 import pokeApi from '../../services/pokeApi';
 import useStyles from './styles';
-
-interface ISearchBarProp {
-    typeSearch: string,
-    setTypeSearch: (typeSearch: string) => void,
-    search: string
-	setSearch: (search: string) => void,
-	area: string, 
-	setArea: (area: string) => void,
-	handleSearch: () => void,
-    loading: boolean
-}
+import ISearchBarProps from '../../types/ISearchBarProps';
 
 function SearchBar({ 
     loading,
@@ -25,7 +15,7 @@ function SearchBar({
     area,
     setArea,
     handleSearch
-}: ISearchBarProp) {
+}: ISearchBarProps) {
 
     const classes = useStyles();
 
@@ -102,7 +92,7 @@ function SearchBar({
                                     onClick={handleSearch}
                                     color="primary"
                                     className={classes.btnSearch}
-                                    disabled={typeSearch === 'default'}
+                                    disabled={(typeSearch === 'default') || (typeSearch === 'by-area' && area === null)}
                                 >
                                     {
                                         loading === true

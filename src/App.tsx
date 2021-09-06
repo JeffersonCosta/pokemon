@@ -26,7 +26,7 @@ const App = () => {
 	const [pokemons, setPokemons] = useState<Array<IPokemon>>([]);
 	const [typeSearch, setTypeSearch] = useState('default');
 	const [search, setSearch] = useState('');
-	const [area, setArea] = useState<any>({});
+	const [area, setArea] = useState<any>(null);
 	const [loading, setLoading] = useState(false);
 	const [openErrorMessage, setOpenErrorMessage] = useState(false);
 	const [errorMessage, setErrorMessage] = useState('Erro ao realizar busca...');
