@@ -54,4 +54,5 @@ npm start
 
 </div>
 
-<h1 align="center">*"First do it, then do it right, then do it better"*</h1>
+*"First do it, then do it right, then do it better"*
+=========
