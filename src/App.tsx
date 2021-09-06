@@ -9,6 +9,7 @@ import IPagination from './types/IPagination';
 import IPokemon from './types/IPokemon';
 import { Close } from '@material-ui/icons';
 import { Alert } from '@material-ui/lab';
+import { AxiosError } from 'axios';
 
 const App = () => {
 
@@ -66,7 +67,7 @@ const App = () => {
 		setLoading(true);
 
 		pokeApi
-			.get<any>(`pokemon/${search}`)
+			.get<any>(`pokemon/${search.toLowerCase()}`)
 			.then(response => {
 
 				setPokemon({
@@ -75,15 +76,15 @@ const App = () => {
 				});
 				setLoading(false);
 			})
-			.catch(error => {
+			.catch((reason: AxiosError) => {
 
 				setPokemon({});
 				setLoading(false);
 
-				setErrorMessage('Erro ao realizar busca, por favor, tente novamente...');
-				setOpenErrorMessage(true);
-
-				console.log(error);
+				if (reason.response!.status !== 404) {
+					setErrorMessage('Erro ao realizar busca, por favor, tente novamente...');
+					setOpenErrorMessage(true);
+				}
 			});
 	}
 
