@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppBar, Box, Button, Grid, MenuItem, TextField, Toolbar } from '@material-ui/core';
+import { AppBar, Box, Button, CircularProgress, Grid, MenuItem, TextField, Toolbar } from '@material-ui/core';
 import { SearchOutlined } from '@material-ui/icons';
 import { AsyncPaginate } from 'react-select-async-paginate';
 import pokeApi from '../../services/pokeApi';
@@ -13,9 +13,11 @@ interface ISearchBarProp {
 	area: string, 
 	setArea: (area: string) => void,
 	handleSearch: () => void,
+    loading: boolean
 }
 
 function SearchBar({ 
+    loading,
     typeSearch, 
     setTypeSearch, 
     search,
@@ -76,6 +78,7 @@ function SearchBar({
                                         value={area}
                                         loadOptions={loadOptions}
                                         onChange={(area: any) => { setArea(area) }}
+                                        placeholder="Selecione uma área"
                                     />
                                     : <TextField
                                         className={classes.input}
@@ -99,8 +102,13 @@ function SearchBar({
                                     onClick={handleSearch}
                                     color="primary"
                                     className={classes.btnSearch}
+                                    disabled={typeSearch === 'default'}
                                 >
-                                    <SearchOutlined />
+                                    {
+                                        loading === true
+                                        ? <CircularProgress color="inherit" size={24} />
+                                        : <SearchOutlined />
+                                    }
                                 </Button>
                             </Box>
                         </Box>

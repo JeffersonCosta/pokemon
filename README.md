@@ -53,3 +53,6 @@ npm start
 <a href="https://jeffersoncosta.github.io/pokemon">https://jeffersoncosta.github.io/pokemon</a>
 
 </div>
+
+*"First do it, then do it right, then do it better"*
+=========

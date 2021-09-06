@@ -12,6 +12,19 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 		maxWidth: 250,
 		width: '100%',
 		margin: 10
+	},
+	backdrop: {
+		zIndex: theme.zIndex.drawer + 1,
+		color: '#fff',
+	},
+	imgPikachu: {
+		maxWidth: 300,
+		display: 'block',
+		margin: '50px auto'
+	},
+	imgPikachuDescription: {
+		fontFamily: 'Righteous, Raleway, Arial',
+		marginTop: 20
 	}
 }));
 
