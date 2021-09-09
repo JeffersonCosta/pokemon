@@ -19,9 +19,9 @@ function SearchBar({
 
     const classes = useStyles();
 
-    async function loadOptions(loadedOptions: any) {
+    async function loadOptions(search: string, prevOptions: any) {
 
-		const response = await pokeApi.get<any>(`location-area?offset=${loadedOptions.length}&limit=20`);
+		const response = await pokeApi.get<any>(`location-area?offset=${prevOptions.length}&limit=20`);
 
 		const results = response.data.results.map((result: any) => {
 			return {
@@ -30,7 +30,7 @@ function SearchBar({
 			}
 		});
 
-        const options = [...results, ...loadedOptions];
+        const options = [...results, ...prevOptions];
 
 		return {
 			options: options,
