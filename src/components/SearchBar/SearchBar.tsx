@@ -22,14 +22,18 @@ function SearchBar({
     async function loadOptions(loadedOptions: any) {
 
 		const response = await pokeApi.get<any>(`location-area?offset=${loadedOptions.length}&limit=20`);
+
 		const results = response.data.results.map((result: any) => {
 			return {
 				value: result.id,
 				label: result.name
 			}
-		})
+		});
+
+        const options = [...results, ...loadedOptions];
+
 		return {
-			options: results,
+			options: options,
 			hasMore: response.data.next,
 		};
 	}
